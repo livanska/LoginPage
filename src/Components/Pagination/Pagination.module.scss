@@ -1,0 +1,29 @@
+.btn {
+  color: royalblue;
+  background-color: white;
+  border-color: white;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-weight: 900;
+  border: none;
+
+  box-shadow: none;
+  padding: 15px;
+
+  cursor: pointer;
+  &:focus {
+    outline: none;
+  }
+  &:active {
+    border: none;
+  }
+  &:disabled {
+    cursor: auto;
+    color: white;
+    background-color: rgba(175, 175, 175, 0.726);
+  }
+}
+
+.activeBtn {
+  color: white;
+  background-color: royalblue;
+}
