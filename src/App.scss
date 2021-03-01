@@ -17,7 +17,6 @@ body,
     display: inline;
   }
   height: 100%;
-  object-fit: fill;
   justify-content: center;
   font-family: 'Sarala';
 }
@@ -27,7 +26,7 @@ body,
     height: 100%;
     .image {
       display: block;
-      object-fit: fill;
+      object-fit: cover;
       height: 100%;
       width: 100%;
     }
@@ -59,14 +58,14 @@ body,
 
     .headers {
       margin-bottom: 15%;
-      #title {
+      .title {
         text-align: start;
         margin-bottom: -2%;
         font-size: 28px;
         color: $header-text;
         font-weight: 700;
       }
-      #subtitle {
+      .subtitle {
         color: $header-text;
         margin-top: 0;
         padding-top: 0;
@@ -114,7 +113,7 @@ body,
         color: $header-text;
         line-height: 100%;
         vertical-align: top;
-        &:hover #custom-input ~ .checkmark {
+        &:hover .custom-input ~ .checkmark {
           border: 0.8px solid $header-text;
 
           box-shadow: inset 2px 2px 2px rgba(0, 0, 0, 0.25);
@@ -129,7 +128,7 @@ body,
           border: 0.8px solid $header-text;
         }
 
-        #custom-input {
+        .custom-input {
           display: none;
           margin-left: 0;
 

@@ -12,8 +12,8 @@ function App() {
         <div className='container-logging-form'>
           <div className='logging-form-content'>
             <div className='headers'>
-              <h2 id='title'>Log in</h2>
-              <h4 id='subtitle'>
+              <h2 className='title'>Log in</h2>
+              <h4 className='subtitle'>
                 If you don`t have an account yet, please <a href=''>register</a> first.
               </h4>
             </div>
@@ -23,8 +23,8 @@ function App() {
               <a href=''>I forgot my password</a>
             </div>
             <div className='container-checkbox'>
-              <label htmlFor='custom-input' className='checkbox'>
-                <input id='custom-input' type='checkbox'></input>
+              <label htmlFor='remember-me-input' className='checkbox'>
+                <input id='remember-me-input' className='custom-input' type='checkbox'></input>
                 <span className='checkmark'></span>
                 <p>Remember me</p>
               </label>
