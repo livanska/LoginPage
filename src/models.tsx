@@ -59,9 +59,7 @@ export class User implements IUser {
     return userTasks;
   }
   getTotalWorkingTime(): number {
-    let userTime = 0;
-    this.getAttachedTasks().forEach(t => (userTime += t.durationInMin));
-    return userTime;
+    return this.getAttachedTasks().reduce((sum, current) => sum + current.durationInMin, 0);
   }
 }
 
@@ -77,7 +75,8 @@ export class App implements IApp {
 }
 
 export class Project implements IProject {
-  constructor(public tasks: ITask[] = []) {}
+  public tasks: ITask[] = [];
+  constructor() {}
   addTask(task: ITask) {
     this.tasks.push(task);
   }
