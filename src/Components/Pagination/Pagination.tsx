@@ -14,10 +14,17 @@ interface PaginationProps {
   onChangePage: (newPage: number) => void;
 }
 
-function Pagination({ activePage, totalItems, perPage, withActions, classes }: PaginationProps) {
+function Pagination({
+  activePage,
+  totalItems,
+  perPage,
+  withActions,
+  classes,
+  onChangePage
+}: PaginationProps) {
   const [active, setActive] = useState<number>(activePage);
 
-  const onChangePage = (newPage: number) => {
+  onChangePage = (newPage: number) => {
     active !== newPage && setActive(newPage);
   };
 
