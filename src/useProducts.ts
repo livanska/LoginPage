@@ -62,28 +62,29 @@ const Products: Product[] = [
 const useProducts = (perPage: number, allProducts: Product[] = Products) => {
   const [productsList, setProductsList] = useState<Product[]>(allProducts);
   const [page, setPage] = useState<number>(0);
+  const [filter, setFilter] = useState<IFilterOptions | null>(null);
 
-  const products = useMemo(
-    () =>
-      productsList.length >= perPage
-        ? productsList.slice(page * perPage, (page + 1) * perPage)
-        : productsList,
-    [page, perPage, productsList]
-  );
-
-  const total = useMemo(() => {
-    return Math.ceil(productsList.length / perPage);
-  }, [perPage, productsList]);
+  const { products, total } = useMemo(() => {
+    let prods = productsList;
+    if (filter) {
+      filter.priceMore && (prods = productsList.filter(prod => prod.price > filter.priceMore!));
+      filter.priceLess && (prods = productsList.filter(prod => prod.price < filter.priceLess!));
+      filter.name && (prods = productsList.filter(prod => prod.name === filter.name));
+    }
+    let products = prods.length >= perPage ? prods.slice(page * perPage, (page + 1) * perPage) : prods;
+    let total = Math.ceil(prods.length / perPage);
+    return { products, total };
+  }, [page, perPage, filter, productsList]);
 
   const changePage = useCallback(
     (active: number) => {
-      ((active < total && active > 0) || (active < total && active >= 0)) && setPage(active);
+      if (active < total && active >= 0) setPage(active);
     },
     [total]
   );
 
   const addProduct = (item: Partial<Product>) => {
-    setProductsList(prev => [...prev, { id: productsList.length + 1, ...item } as Product]);
+    setProductsList(prev => [...prev, { id: prev.length + 1, ...item } as Product]);
   };
 
   const deleteProduct = (id: number) => {
@@ -91,6 +92,7 @@ const useProducts = (perPage: number, allProducts: Product[] = Products) => {
   };
 
   const editProduct = (item: Partial<Product>) => {
+    console.log(productsList);
     setProductsList(prev =>
       prev.map(prod => {
         if (prod.id === item.id) {
@@ -98,18 +100,15 @@ const useProducts = (perPage: number, allProducts: Product[] = Products) => {
             ...prod,
             ...item
           };
-        } else return prod;
+        }
+        return prod;
       })
     );
   };
 
-  const applyFilter = useCallback(
-    (filter: IFilterOptions) => {
-      filter.priceMore && setProductsList(productsList.filter(prod => prod.price > filter.priceMore!));
-      filter.priceLess && setProductsList(productsList.filter(prod => prod.price < filter.priceLess!));
-    },
-    [productsList]
-  ); //if [productsList] it will rewrite array every time -> becomes 0 length soon
+  const applyFilter = useCallback((filter: IFilterOptions) => {
+    setFilter(filter);
+  }, []);
 
   return {
     page,
