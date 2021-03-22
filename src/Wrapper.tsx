@@ -7,7 +7,7 @@ import { ProductsRecord } from './product';
 export const Wrapper = () => {
   const [cart, setCart] = useState<ProductsRecord[]>([]);
   return (
-    <cartContext.Provider value={[cart, setCart]}>
+    <cartContext.Provider value={{ cart, setCart }}>
       <Products />
       <Cart />
     </cartContext.Provider>

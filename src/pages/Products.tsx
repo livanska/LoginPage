@@ -1,21 +1,21 @@
-import React, { Provider, useContext } from 'react';
+import React, { useContext } from 'react';
 import ProductsContext from '../cartContext';
 import { Product, products, ProductsRecord } from '../product';
 
 export const Products = () => {
-  const [cart, setCart] = useContext(ProductsContext);
+  const cont = useContext(ProductsContext);
+  const cart = cont.cart;
   const addProduct = (item: Product) => {
-    if (cart.some((e: ProductsRecord) => e.id === item.id)) {
-      setCart(
-        cart.map((prod: ProductsRecord) => {
-          if (prod.id === item.id) {
-            prod.amount++;
-          }
-          return prod;
-        })
-      );
-    } else setCart([...cart, { ...item, amount: 1 } as ProductsRecord]);
-    console.log(cart);
+    const isProductInCart = cart.some((e: ProductsRecord) => e.id === item.id);
+    if (isProductInCart) {
+      const newCart = cart.map((prod: ProductsRecord) => {
+        if (prod.id === item.id) {
+          prod.amount++;
+        }
+        return prod;
+      });
+      cont.setCart(newCart);
+    } else cont.setCart([...cart, { ...item, amount: 1 } as ProductsRecord]);
   };
   return (
     <div>
