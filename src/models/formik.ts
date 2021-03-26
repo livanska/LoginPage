@@ -4,7 +4,7 @@ export interface InputProps {
   disabled?: boolean;
   value?: string;
   name: string;
-  type?: 'text' | 'number' | 'password' | 'email';
+  type?: 'text' | 'number' | 'password' | 'email' | 'radio' | 'checkbox';
   autoComplete?: 'off';
   error?: string;
   onBlur?(e: React.FocusEvent): void;
