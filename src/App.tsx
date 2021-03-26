@@ -1,19 +1,39 @@
 import React from 'react';
-import logo from './logo.svg';
+
 import './App.css';
+import { Formik, Form } from 'formik';
+import { FormikInput } from './shared/formikAdapters';
+import { UserFormSchema } from './utils/validation-schemas';
+
+interface UserFormsValues {
+  firstname: string;
+  lastname: string;
+  email: string;
+}
+
+const defaultValues: UserFormsValues = {
+  firstname: '',
+  lastname: '',
+  email: ''
+};
 
 function App() {
   return (
     <div className='App'>
-      <header className='App-header'>
-        <img src={logo} className='App-logo' alt='logo' />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a className='App-link' href='https://reactjs.org' target='_blank' rel='noopener noreferrer'>
-          Learn React
-        </a>
-      </header>
+      <Formik<UserFormsValues> //optional
+        initialValues={defaultValues}
+        validationSchema={UserFormSchema}
+        onSubmit={val => {
+          console.log(val);
+        }}
+      >
+        <Form>
+          <FormikInput name='firstname' label='First Name' />
+          <FormikInput name='lastname' label='Last Name' />
+          <FormikInput name='email' label='Email' />
+          <button>Send</button>
+        </Form>
+      </Formik>
     </div>
   );
 }
