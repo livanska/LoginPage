@@ -20,9 +20,7 @@ export function reducer(cart: any, action: any) {
           }
           return prod;
         });
-      } else
-        return (prev: ProductsRecord[]) =>
-          prev.filter((prod: ProductsRecord) => prod.id !== action.payload.id);
+      } else return cart.filter((prod: ProductsRecord) => prod.id !== action.payload.id);
     default:
       return cart;
   }
