@@ -5,7 +5,7 @@ interface Product {
   price: number;
 }
 
-interface IFilterOptions {
+export interface IFilterOptions {
   name?: string;
   priceMore?: number;
   priceLess?: number;
@@ -69,7 +69,7 @@ const useProducts = (perPage: number, allProducts: Product[] = Products) => {
     if (filter) {
       filter.priceMore && (prods = productsList.filter(prod => prod.price > filter.priceMore!));
       filter.priceLess && (prods = productsList.filter(prod => prod.price < filter.priceLess!));
-      filter.name && (prods = productsList.filter(prod => prod.name === filter.name));
+      filter.name && filter.name != '' && (prods = productsList.filter(prod => prod.name === filter.name));
     }
     let products = prods.length >= perPage ? prods.slice(page * perPage, (page + 1) * perPage) : prods;
     let total = Math.ceil(prods.length / perPage);

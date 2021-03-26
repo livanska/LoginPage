@@ -39,5 +39,8 @@
   margin-bottom: 10px;
 }
 .row_container {
-  display: inline-flex;
+  display: flex;
+}
+.filter_container {
+  display: inline-block;
 }

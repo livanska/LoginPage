@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react';
-import useProducts from './useProducts';
+import useProducts, { IFilterOptions } from './useProducts';
 import css from './Products.module.scss';
 import cn from 'classnames';
 
@@ -17,6 +17,7 @@ function Products() {
   const nameInput = useRef<HTMLInputElement | null>(null);
   const priceInput = useRef<HTMLInputElement | null>(null);
   const filterInput = useRef<HTMLInputElement | null>(null);
+  const [filter, setFilter] = useState<IFilterOptions>({} as IFilterOptions);
   const [selected, setSelected] = useState<number | null>(null);
 
   const handlePageChange = (next: boolean) => {
@@ -51,11 +52,32 @@ function Products() {
     } else alert('No selected');
   };
 
-  const handleMoreFilter = () => {
-    applyFilter({ priceMore: filterInput.current?.valueAsNumber });
+  const handleMoreFilter = (more: number) => {
+    setFilter(prev => {
+      return { ...prev, priceMore: more };
+    });
+    console.log(filter);
   };
-  const handleLessFilter = () => {
-    applyFilter({ priceLess: filterInput.current?.valueAsNumber });
+
+  const handleLessFilter = (less: number) => {
+    setFilter(prev => {
+      return { ...prev, priceLess: less };
+    });
+    console.log(filter);
+  };
+
+  const handleNameFilter = (name: string) => {
+    setFilter(prev => {
+      return { ...prev, name: name };
+    });
+    console.log(filter);
+  };
+
+  const applyFilters = () => {
+    applyFilter(filter);
+  };
+  const resetFilters = () => {
+    applyFilter({});
   };
 
   return (
@@ -76,7 +98,7 @@ function Products() {
         ))}
       </div>
       <p>
-        Page {page + 1} from {total}
+        Page {page + 1} from {total === 0 ? 1 : total}
       </p>
       <button className={cn(css.button)} onClick={() => handlePageChange(false)}>
         Prev Page
@@ -100,13 +122,39 @@ function Products() {
             Edit
           </button>
         </div>
-        <div className={cn(css.row_container)}>
-          <button className={cn(css.button)} onClick={handleMoreFilter}>
-            Find more expensive
+        <div className={cn(css.filter_container)}>
+          <div className={cn(css.row_container)}>
+            Price less
+            <input
+              placeholder='Price'
+              className={cn(css.input)}
+              type='number'
+              onChange={e => handleLessFilter(e.target.valueAsNumber)}
+            />
+          </div>
+          <div className={cn(css.row_container)}>
+            Price more
+            <input
+              placeholder='Price'
+              className={cn(css.input)}
+              type='number'
+              onChange={e => handleMoreFilter(e.target.valueAsNumber)}
+            />
+          </div>
+          <div className={cn(css.row_container)}>
+            Name
+            <input
+              placeholder='Name'
+              className={cn(css.input)}
+              type='text'
+              onChange={e => handleNameFilter(e.target.value)}
+            />
+          </div>
+          <button className={cn(css.button)} onClick={applyFilters}>
+            Find
           </button>
-          <input placeholder='Price' className={cn(css.input)} type='number' ref={filterInput} />
-          <button className={cn(css.button)} onClick={handleLessFilter}>
-            Find cheaper
+          <button className={cn(css.button)} onClick={resetFilters}>
+            Reset
           </button>
         </div>
       </div>
