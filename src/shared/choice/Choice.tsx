@@ -1,4 +1,5 @@
 import { FormikInput, InputProps } from '../../models/formik';
+import css from './Choice.module.scss';
 
 export interface FormikChoiceInputProps extends FormikInput<InputProps> {
   type?: 'radio' | 'checkbox';
@@ -13,7 +14,7 @@ export const FormikChoiceInput = ({ label, error, ...props }: FormikChoiceInputP
       <label>
         <input {...props} />
         <span>{label}</span>
-        {error && <div>{error}</div>}
+        {error && <p className={css.errorText}>{error}</p>}
       </label>
     </div>
   );
