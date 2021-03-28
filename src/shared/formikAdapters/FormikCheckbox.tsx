@@ -1,7 +1,7 @@
 import { useField } from 'formik';
 import React from 'react';
 
-import { FormikChoiceInput, FormikChoiceInputProps } from '../choice/Choice';
+import { FormikChoiceInput, FormikChoiceInputProps } from './FormikChoiceInput';
 
 export const FormikCheckbox = (props: FormikChoiceInputProps) => {
   const [field, meta] = useField(props.name);

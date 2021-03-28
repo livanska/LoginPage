@@ -4,6 +4,7 @@ import { FormikInput, FormikRadio, FormikCheckbox, FormikSelect } from '../share
 import { UserFormSchema } from '../utils/validation-schemas';
 import { Button, Col, Row } from 'react-bootstrap';
 
+const countryOptions = ['Ukraine', 'USA', 'Spain', 'Canada', 'Mexico', 'Australia'];
 interface UserFormsValues {
   firstname: string;
   lastname: string;
@@ -16,7 +17,7 @@ interface UserFormsValues {
   state: string;
   zip: string;
   sameAddress: boolean;
-  save: boolean;
+  saveForNextTime: boolean;
 }
 
 const defaultValues: UserFormsValues = {
@@ -31,7 +32,7 @@ const defaultValues: UserFormsValues = {
   state: '',
   zip: '',
   sameAddress: false,
-  save: false
+  saveForNextTime: false
 };
 
 function BillingForm() {
@@ -60,7 +61,7 @@ function BillingForm() {
             <FormikInput name='email' label='Email' />
             <Row>
               <Col>
-                <FormikSelect name='country' label='Country' />
+                <FormikSelect options={countryOptions} name='country' label='Country' />
               </Col>
               <Col>
                 <FormikInput name='state' label='State' />

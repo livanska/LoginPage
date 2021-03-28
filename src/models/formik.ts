@@ -13,3 +13,4 @@ export interface InputProps {
 }
 
 export type FormikInput<T = unknown> = Omit<T, 'value' | 'onChange' | 'onBlur'>;
+// export type FormikSelect = FormikInput & {options: string[]};

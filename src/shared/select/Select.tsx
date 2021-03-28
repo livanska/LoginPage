@@ -4,14 +4,13 @@ import css from './Select.module.scss';
 import { FormikInput, InputProps } from '../../models/formik';
 
 export interface FormikSelectInputProps extends FormikInput<InputProps> {
+  options: string[];
   onBlur?(e: React.FocusEvent<Element>): void;
   onChange?(e: React.ChangeEvent<HTMLSelectElement>): void;
   value?: string;
 }
 
-const options = ['Ukraine', 'USA', 'Spain', 'Canada', 'Mexico', 'Australia'];
-
-export const Select = ({ label, error, ...props }: FormikSelectInputProps) => {
+export const Select = ({ options, label, error, ...props }: FormikSelectInputProps) => {
   return (
     <div>
       <Form.Label className={css.left}>{label}</Form.Label>
