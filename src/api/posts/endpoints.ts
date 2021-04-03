@@ -1,7 +1,5 @@
-//import { AxiosResponse } from 'axios';
 import Axios, { AxiosResponse } from 'axios';
 import { Post, PostResponse } from './types';
-//import { GetHotelsResponse, Hotel, HotelResponse } from './types';
 
 const instance = Axios.create({
   baseURL: 'https://jsonplaceholder.typicode.com/'
