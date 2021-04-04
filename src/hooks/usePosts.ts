@@ -1,5 +1,5 @@
 import useSWR, { cache } from 'swr';
-import { deletePost, getPosts, paginatePost, postPost, Post } from '../api/posts';
+import { deletePost, getPosts, paginatePost, postPost, Post, editPost } from '../api/posts';
 
 export const usePosts = () => {
   const { data, error, mutate } = useSWR('/posts', () => getPosts().then(r => r.data));
@@ -20,7 +20,7 @@ export const usePosts = () => {
   };
 
   const edtPost = async (id: number, newInfo: Partial<Post>) => {
-    await deletePost(id);
+    await editPost(id, newInfo);
     const cached = cache.get('/posts') as Post[];
     mutate(
       cached.map(el => {
