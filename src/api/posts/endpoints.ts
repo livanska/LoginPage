@@ -21,5 +21,6 @@ export const editPost = (id: number, info: Partial<Post>) => {
 };
 
 export const paginatePost = (limit: number, page: number) => {
+  console.log('pg', page);
   return instance.get(`/posts?_limit=${limit}&_page=${page}`);
 };

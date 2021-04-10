@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.css';
 import { usePosts } from './hooks/usePosts';
 import { Post } from './api/posts';
 
 function App() {
-  const { data, loading, addPost, delPost, edtPost, perPagePosts } = usePosts();
+  const { posts, loading, addPost, delPost, edtPost, perPagePosts, page, error, isValidating } = usePosts(0);
 
   const addToPostList = () => {
     addPost({
@@ -26,18 +26,18 @@ function App() {
     } as Partial<Post>);
   };
 
-  const showPaginated = () => {
-    perPagePosts(10, 4);
-  };
-
+  console.log(posts);
   return (
     <div className='App'>
       <button onClick={addToPostList}>add post</button>
-      <button onClick={showPaginated}>Show paginated</button>
+      <button onClick={() => perPagePosts(page - 1)}>Prev</button>
+      <button onClick={() => perPagePosts(page + 1)}>Next</button>
       <div>
         {loading && <h1>Loading...</h1>}
-        {data &&
-          data.map((post: Post) => {
+        {error && <p>Error :(</p>}
+        {isValidating && <p>Validating</p>}
+        {posts &&
+          posts.map((post: Post) => {
             return (
               <div
                 style={{
