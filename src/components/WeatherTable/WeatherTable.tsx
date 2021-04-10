@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { WeatherResponse } from '../../api/weather';
 import { useDispatch, useSelector } from 'react-redux';
 import { weatherSelector } from '../../state/selectors/weatherSelector';
-import { loadWeatherAction as loadWeather } from '../../state/actions/weather/actions';
+import { loadWeather } from '../../state/actions/weather/actions';
 import { usePagination } from '../../hooks/usePagination';
 import { WeatherInformation } from '../../models/WeatherInformation';
 import { TimeWeatherBlock } from '../TimeWeatherBlock/TimeWeatherBlock';
