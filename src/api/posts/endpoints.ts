@@ -20,7 +20,7 @@ export const editPost = (id: number, info: Partial<Post>) => {
   return instance.patch(`/posts/${id}`, info);
 };
 
-export const paginatePost = (limit: number, page: number) => {
-  console.log('pg', page);
-  return instance.get(`/posts?_limit=${limit}&_page=${page}`);
+export const paginatePost = (params: { limit: number; page: number }) => {
+  console.log('pg', params.page);
+  return instance.get(`/posts?_limit=${params.limit}&_page=${params.page}`);
 };

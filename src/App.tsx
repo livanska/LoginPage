@@ -1,11 +1,23 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './App.css';
 import { usePosts } from './hooks/usePosts';
 import { Post } from './api/posts';
 
 function App() {
-  const { posts, loading, addPost, delPost, edtPost, perPagePosts, page, error, isValidating } = usePosts(0);
+  const {
+    posts,
+    loading,
+    addPost,
+    delPost,
+    edtPost,
+    page,
+    error,
+    isValidating,
+    total,
+    changePage
+  } = usePosts();
 
+  //console.log(posts)
   const addToPostList = () => {
     addPost({
       userId: 4,
@@ -25,13 +37,16 @@ function App() {
       body: 'This post body is edited!'
     } as Partial<Post>);
   };
-
-  console.log(posts);
   return (
     <div className='App'>
       <button onClick={addToPostList}>add post</button>
-      <button onClick={() => perPagePosts(page - 1)}>Prev</button>
-      <button onClick={() => perPagePosts(page + 1)}>Next</button>
+      <button disabled={page < 2} onClick={() => changePage(prev => prev - 1)}>
+        Prev
+      </button>
+      {page}
+      <button disabled={page >= total - 1} onClick={() => changePage(prev => prev + 1)}>
+        Next
+      </button>
       <div>
         {loading && <h1>Loading...</h1>}
         {error && <p>Error :(</p>}
